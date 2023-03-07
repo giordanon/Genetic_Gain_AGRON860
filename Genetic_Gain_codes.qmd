@@ -96,7 +96,6 @@ where $Y$ is the number of years that takes to complete a cycle of selection.
 
 For this exercise $k  = 1.40$
 
-The value for $c$ depends on the parental control methods used $c = 1$ when we have female control only or $c = 2$ when having male and female control.
 
 #### 2.1 
 
@@ -112,5 +111,36 @@ s2_ph <- sum(s2_w, s2_ge, s2_g)
 gc_1 <- k * c * s2_g / sqrt(s2_ph)
 gc_1
 ```
+#### 2.2
 
+Modified ear‑to‑row. No selection within rows.
+
+$$G_{cycle} = \frac{k~c~\frac{1}{4}\sigma^2_A}{\sqrt{\sigma^2_{ph}}}$$
+
+$$\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\frac{1}{4} \sigma^2_{ge}}{Env} + \sigma^2_{g}$$
+
+```{r}
+c <- 0.5
+k <- 1.40
+s2_ph <- sum(s2_e/(reps*env), (0.25* s2_ge)/env, s2_g)
+gc_1 <- k * c * 0.25 * s2_g / sqrt(s2_ph)
+gc_1
+```
+
+#### 2.3
+
+Half‑sib selection, population as tester, recombine remnant half‑sib seed.  Male and female control.
+
+$$G_{cycle} = \frac{k~c~\frac{1}{4}\sigma^2_A}{\sqrt{\sigma^2_{ph}}}$$
+
+$$\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\frac{1}{4} \sigma^2_{ge}}{Env} + \sigma^2_{g}$$
+
+```{r}
+# Male and female control
+c <- 1
+k <- 1.40
+s2_ph <- sum(s2_e/(reps*env), (0.25* s2_ge)/env, s2_g)
+gc_1 <- k * c * 0.25 * s2_g / sqrt(s2_ph)
+gc_1
+```
 
