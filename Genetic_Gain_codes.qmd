@@ -15,16 +15,24 @@ reps <- 3
 years <- 4
 locations <- 1
 env <- years * locations
-
+N <- 10
 
 anova_1 <- 
 data.frame(SV = c("Y", "R/Y", "F", "FxY", "R/YxF", "Plants/plot"), 
            df = c(3,8,99,297,792,10800), 
            MS = c(3190,47,2685,527,92,31)
-           ) %>% 
-  mutate(VAR = MS * df)
+           )
 anova_1
 ```
+
+```{r}
+# Get variance components from ANOVA table
+s2_w <- anova_1$MS[[6]]
+s2 <- (anova_1$MS[[5]] - s2_w)/N
+s2_ge <- (anova_1$MS[[4]] - (s2_w + N*s2))/(N*reps)
+s2_g <- (anova_1$MS[[3]] - (s2_w + N*s2 + N*reps*s2_ge))/(N*reps*env)
+```
+
 
 Heritability or $h^2$ is the ratio between the genotipic variance $\sigma^2_g$ and the phenotypic variance $\sigma^2_{ph}$
 
@@ -41,40 +49,28 @@ $\sigma^2_{w}$ is the variance among plants within a plot and $\sigma^2_{ge}$ is
 
 
 ```{r}
-s2_w <- anova_1$VAR[[6]]
-s2_ge <- anova_1$VAR[[4]]
-s2_g <- anova_1$VAR[[3]]
-h2_a <- s2_g / (sum(s2_w, s2_ge, s2_g ))
+h2_a <- s2_g / (sum(s2_w,s2, s2_ge, s2_g))
 h2_a
 ```
 
 
 #### 1b. Selection in based on a comparison among plots
   
-$$\sigma_{ph}^2 = \sigma^2_{w} + \sigma^2_{plants} + \sigma^2_{ge} + \sigma^2_{g}$$
-where $\sigma^2_{plants} = \frac{\sigma^2_{R/Y~x~G}-\sigma^2_w}{N}$ and $N$ is the number of plants per plot. 
+$$\sigma_{ph}^2 = \sigma^2_{w} + \sigma^2 + \sigma^2_{ge} + \sigma^2_{g}$$
 
 ```{r}
-s2_RYxF <- anova_1$VAR[[5]]
-
-# N
-plants_plot <- 10
-
-s2_plants <- (s2_RYxF - s2_w) / plants_plot
-
-h2_b <-  s2_g / (sum(s2_w,s2_plants, s2_ge, s2_g ))
+h2_b <-  s2_g / (sum(s2_w, s2_ge, s2_g ))
 h2_b
 ```
 
   
 #### 1c. Plot basis
 
-$$\sigma_{ph}^2 = \frac{\sigma^2_{w}}{N} + \sigma^2_{plants} + \sigma^2_{ge} + \sigma^2_{g}$$
+$$\sigma_{ph}^2 = \frac{\sigma^2_{w}}{N} + \sigma^2 + \sigma^2_{ge} + \sigma^2_{g}$$
   
-where $\sigma^2_e = \frac{\sigma^2_w}{N}+\sigma^2_{plants}$ and $N$ is the number of plants per plot. 
 
 ```{r}
-h2_c <-  s2_g / (sum(s2_w/plants_plot,s2_plants, s2_ge, s2_g ))
+h2_c <-  s2_g / (sum(s2_w/N,s2, s2_ge, s2_g ))
 h2_c
 ```
 
@@ -82,12 +78,39 @@ h2_c
 #### 1d. Entry-mean basis
   
 $$\sigma^2_{ph} = \frac{\sigma^2_e}{Reps~ Env} + \frac{\sigma^2_{ge}}{Env} + \sigma^2_g$$
+where $\sigma^2_e = \frac{\sigma^2_w}{N}+\sigma^2$ and $N$ is the number of plants per plot. 
 
 
 ```{r}
-s2_e <- s2_w/plants_plot + s2_plants
+s2_e <- s2_w/N + s2
 h2_d <-  s2_g / (sum(s2_e/(reps * env), s2_ge/env, s2_g ))
 h2_d
+```
+
+### 2. Genetic Gain
+
+$$G_{cycle} = \frac{c~k~\sigma^2_g}{\sigma^2_{ph}}$$
+
+$$G_{year} = \frac{G_{cycle}}{Y} $$
+where $Y$ is the number of years that takes to complete a cycle of selection.
+
+For this exercise $k  = 1.40$
+
+The value for $c$ depends on the parental control methods used $c = 1$ when we have female control only or $c = 2$ when having male and female control.
+
+#### 2.1 
+
+Recurrent phenotypic selection. Female control only, selection within plots (grid selection).
+
+$$G_{cycle} = \frac{k~c~\sigma^2_A}{ \sqrt{\sigma^2_{ph}}}$$
+where $\sigma^2_{ph} = \sigma^2_{w} + \sigma^2_{ge} + \sigma^2_{g}$
+
+```{r}
+c <- 0.5
+k <- 1.40
+s2_ph <- sum(s2_w, s2_ge, s2_g)
+gc_1 <- k * c * s2_g / sqrt(s2_ph)
+gc_1
 ```
 
 
