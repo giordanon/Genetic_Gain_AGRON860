@@ -33,29 +33,24 @@ s2_ge <- (anova_1$MS[[4]] - (s2_w + N*s2))/(N*reps)
 s2_g <- (anova_1$MS[[3]] - (s2_w + N*s2 + N*reps*s2_ge))/(N*reps*env)
 ```
 
-
 Heritability or $h^2$ is the ratio between the genotipic variance $\sigma^2_g$ and the phenotypic variance $\sigma^2_{ph}$
 
 $$h^2 = \frac{\sigma^2_g}{\sigma^2_{ph}}$$
 
-
-
 Depending on the method $\sigma^2_{ph}$ is estimated differently:
 
 #### 1a. On a single plant basis
-  
-$$\sigma_{ph}^2 = \sigma^2_{w} + \sigma^2_{ge} + \sigma^2_{g}$$  
-$\sigma^2_{w}$ is the variance among plants within a plot and $\sigma^2_{ge}$ is the variance of the genotype by environment interaction.   
 
+$$\sigma_{ph}^2 = \sigma^2_{w} + \sigma^2_{ge} + \sigma^2_{g}$$\
+$\sigma^2_{w}$ is the variance among plants within a plot and $\sigma^2_{ge}$ is the variance of the genotype by environment interaction.
 
 ```{r}
 h2_a <- s2_g / (sum(s2_w,s2, s2_ge, s2_g))
 h2_a
 ```
 
-
 #### 1b. Selection in based on a comparison among plots
-  
+
 $$\sigma_{ph}^2 = \sigma^2_{w} + \sigma^2 + \sigma^2_{ge} + \sigma^2_{g}$$
 
 ```{r}
@@ -63,23 +58,18 @@ h2_b <-  s2_g / (sum(s2_w, s2_ge, s2_g ))
 h2_b
 ```
 
-  
 #### 1c. Plot basis
 
 $$\sigma_{ph}^2 = \frac{\sigma^2_{w}}{N} + \sigma^2 + \sigma^2_{ge} + \sigma^2_{g}$$
-  
 
 ```{r}
 h2_c <-  s2_g / (sum(s2_w/N,s2, s2_ge, s2_g ))
 h2_c
 ```
 
-
 #### 1d. Entry-mean basis
-  
-$$\sigma^2_{ph} = \frac{\sigma^2_e}{Reps~ Env} + \frac{\sigma^2_{ge}}{Env} + \sigma^2_g$$
-where $\sigma^2_e = \frac{\sigma^2_w}{N}+\sigma^2$ and $N$ is the number of plants per plot. 
 
+$$\sigma^2_{ph} = \frac{\sigma^2_e}{Reps~ Env} + \frac{\sigma^2_{ge}}{Env} + \sigma^2_g$$ where $\sigma^2_e = \frac{\sigma^2_w}{N}+\sigma^2$ and $N$ is the number of plants per plot.
 
 ```{r}
 s2_e <- s2_w/N + s2
@@ -89,20 +79,19 @@ h2_d
 
 ### 2. Genetic Gain
 
+Assumption : $\sigma^2_g = \sigma^2_A+\sigma^2_D$
+
 $$G_{cycle} = \frac{c~k~\sigma^2_g}{\sigma^2_{ph}}$$
 
-$$G_{year} = \frac{G_{cycle}}{Y} $$
-where $Y$ is the number of years that takes to complete a cycle of selection.
+$$G_{year} = \frac{G_{cycle}}{Y} $$ where $Y$ is the number of years that takes to complete a cycle of selection.
 
-For this exercise $k  = 1.40$
+For this exercise $k = 1.40$
 
-
-#### 2.1 
+#### 2.1
 
 Recurrent phenotypic selection. Female control only, selection within plots (grid selection).
 
-$$G_{cycle} = \frac{k~c~\sigma^2_A}{ \sqrt{\sigma^2_{ph}}}$$
-where $\sigma^2_{ph} = \sigma^2_{w} + \sigma^2_{ge} + \sigma^2_{g}$
+$$G_{cycle} = \frac{k~c~\sigma^2_A}{ \sqrt{\sigma^2_{ph}}}$$ where $\sigma^2_{ph} = \sigma^2_{w} + \sigma^2_{ge} + \sigma^2_{g}$
 
 ```{r}
 c <- 0.5
@@ -111,6 +100,7 @@ s2_ph <- sum(s2_w, s2_ge, s2_g)
 gc_1 <- k * c * s2_g / sqrt(s2_ph)
 gc_1
 ```
+
 #### 2.2
 
 Modified ear‑to‑row. No selection within rows.
@@ -122,14 +112,14 @@ $$\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\frac{1}{4} \sigma^2_{
 ```{r}
 c <- 0.5
 k <- 1.40
-s2_ph <- sum(s2_e/(reps*env), (0.25* s2_ge)/env, s2_g)
+s2_ph <- sum(s2_e/(reps*env), (0.25 * s2_ge)/env, s2_g)
 gc_1 <- k * c * 0.25 * s2_g / sqrt(s2_ph)
 gc_1
 ```
 
 #### 2.3
 
-Half‑sib selection, population as tester, recombine remnant half‑sib seed.  Male and female control.
+Half‑sib selection, population as tester, recombine remnant half‑sib seed. Male and female control.
 
 $$G_{cycle} = \frac{k~c~\frac{1}{4}\sigma^2_A}{\sqrt{\sigma^2_{ph}}}$$
 
@@ -139,7 +129,7 @@ $$\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\frac{1}{4} \sigma^2_{
 # Male and female control
 c <- 1
 k <- 1.40
-s2_ph <- sum(s2_e/(reps*env), (0.25* s2_ge)/env, s2_g)
+s2_ph <- sum(s2_e/(reps*env), (0.25 * s2_ge)/env, 0.25*s2_g)
 gc_1 <- k * c * 0.25 * s2_g / sqrt(s2_ph)
 gc_1
 ```
@@ -150,16 +140,65 @@ Half‑sib selection, population tester, recombine selfed seed.
 
 $$G_{cycle} = \frac{k~c~\frac{1}{4}\sigma^2_A}{\sqrt{\sigma^2_{ph}}}$$
 
-$$\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\frac{1}{4} \sigma^2_{ge}}{Env} + \sigma^2_{g}$$
+$$\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\frac{1}{4} \sigma^2_{ge}}{Env} + \frac{1}{4} \sigma^2_{g}$$
+
+
+
 
 ```{r}
 # Male and female control
 c <- 2
 k <- 1.40
-s2_ph <- sum(s2_e/(reps*env), (0.25* s2_ge)/env, s2_g)
+s2_ph <- sum(s2_e/(reps*env), (0.25* s2_ge)/env, 0.25 * s2_g)
 gc_1 <- k * c * 0.25 * s2_g / sqrt(s2_ph)
 gc_1
 ```
 
+#### 2.5
 
+Full‑sib selection.
+
+```{r}
+c <- 1
+k <- 1.40
+s2_ph <- sum(s2_e/(reps*env), (0.50* s2_ge)/env, 0.50 * s2_g)
+gc_1 <- k * c * 0.50 * s2_g / sqrt(s2_ph)
+gc_1
+```
+
+
+#### 2.6 
+
+
+```{r}
+c <- 1
+k <- 1.40
+s2_ph <- sum(s2_e/(reps*env), (0.50* s2_ge)/env, 0.50 * s2_g)
+gc_1 <- k * c * 0.50 * s2_g / sqrt(s2_ph)
+gc_1
+```
+
+
+#### 2.6 
+
+
+```{r}
+c <- 1
+k <- 1.40
+s2_ph <- sum(s2_e/(reps*env), (s2_ge)/env, s2_g)
+gc_1 <- k * c  * s2_g / sqrt(s2_ph)
+gc_1
+```
+
+#### 2.7 
+
+
+```{r}
+f <- .875
+c <- 1
+k <- 1.40
+s2_ph <- sum(s2_e/(reps*env), ((1+f)*s2_ge)/env, (1+f)*s2_g)
+gc_1 <- k * c  * (1+f) * s2_g / sqrt(s2_ph)
+gc_1
+```
 
