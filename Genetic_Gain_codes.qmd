@@ -1,5 +1,6 @@
 ---
 title: "Genetic Gain"
+authors: "Enzo, Nick x 3"
 format: html
 editor: visual
 ---
@@ -107,14 +108,16 @@ Modified ear‑to‑row. No selection within rows.
 
 $$G_{cycle} = \frac{k~c~\frac{1}{4}\sigma^2_A}{\sqrt{\sigma^2_{ph}}}$$
 
+$c = \frac{1}{2}$
+
 $$\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\frac{1}{4} \sigma^2_{ge}}{Env} + \sigma^2_{g}$$
 
 ```{r}
 c <- 0.5
 k <- 1.40
 s2_ph <- sum(s2_e/(reps*env), (0.25 * s2_ge)/env, s2_g)
-gc_1 <- k * c * 0.25 * s2_g / sqrt(s2_ph)
-gc_1
+gc_2 <- k * c * 0.25 * s2_g / sqrt(s2_ph)
+gc_2
 ```
 
 #### 2.3
@@ -123,6 +126,8 @@ Half‑sib selection, population as tester, recombine remnant half‑sib seed. M
 
 $$G_{cycle} = \frac{k~c~\frac{1}{4}\sigma^2_A}{\sqrt{\sigma^2_{ph}}}$$
 
+$c = 1$
+
 $$\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\frac{1}{4} \sigma^2_{ge}}{Env} + \sigma^2_{g}$$
 
 ```{r}
@@ -130,8 +135,8 @@ $$\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\frac{1}{4} \sigma^2_{
 c <- 1
 k <- 1.40
 s2_ph <- sum(s2_e/(reps*env), (0.25 * s2_ge)/env, 0.25*s2_g)
-gc_1 <- k * c * 0.25 * s2_g / sqrt(s2_ph)
-gc_1
+gc_3 <- k * c * 0.25 * s2_g / sqrt(s2_ph)
+gc_3
 ```
 
 #### 2.4
@@ -139,6 +144,8 @@ gc_1
 Half‑sib selection, population tester, recombine selfed seed.
 
 $$G_{cycle} = \frac{k~c~\frac{1}{4}\sigma^2_A}{\sqrt{\sigma^2_{ph}}}$$
+
+$c = 2$
 
 $$\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\frac{1}{4} \sigma^2_{ge}}{Env} + \frac{1}{4} \sigma^2_{g}$$
 
@@ -150,57 +157,103 @@ $$\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\frac{1}{4} \sigma^2_{
 c <- 2
 k <- 1.40
 s2_ph <- sum(s2_e/(reps*env), (0.25* s2_ge)/env, 0.25 * s2_g)
-gc_1 <- k * c * 0.25 * s2_g / sqrt(s2_ph)
-gc_1
+gc_4 <- k * c * 0.25 * s2_g / sqrt(s2_ph)
+gc_4
 ```
 
 #### 2.5
 
 Full‑sib selection.
 
-```{r}
-c <- 1
-k <- 1.40
-s2_ph <- sum(s2_e/(reps*env), (0.50* s2_ge)/env, 0.50 * s2_g)
-gc_1 <- k * c * 0.50 * s2_g / sqrt(s2_ph)
-gc_1
-```
+$$G_{cycle} = \frac{k~c~\frac{1}{2}\sigma^2_A}{\sqrt{\sigma^2_{ph}}}$$
 
+$c = 1$
 
-#### 2.6 
-
+$$\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\frac{1}{2} \sigma^2_{ge}}{Env} + \frac{1}{2} \sigma^2_{g}$$
 
 ```{r}
 c <- 1
 k <- 1.40
 s2_ph <- sum(s2_e/(reps*env), (0.50* s2_ge)/env, 0.50 * s2_g)
-gc_1 <- k * c * 0.50 * s2_g / sqrt(s2_ph)
-gc_1
+gc_5 <- k * c * 0.50 * s2_g / sqrt(s2_ph)
+gc_5
 ```
 
 
 #### 2.6 
 
+S0:1 line evaluation. One intercrossing generation between cycles.
+
+$$G_{cycle} = \frac{k~c~\sigma^2_A}{\sqrt{\sigma^2_{ph}}}$$
+
+$c = 1$
+
+$$\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\sigma^2_{ge}}{Env} +  \sigma^2_{g}$$
 
 ```{r}
 c <- 1
 k <- 1.40
 s2_ph <- sum(s2_e/(reps*env), (s2_ge)/env, s2_g)
-gc_1 <- k * c  * s2_g / sqrt(s2_ph)
-gc_1
+gc_6 <- k * c  * s2_g / sqrt(s2_ph)
+gc_6
 ```
 
 #### 2.7 
 
+S3:4 line evaluation. Two intercrossing generations between cycles.
+
+
+$$G_{cycle} = \frac{k~c~(1+f)~\sigma^2_A}{\sqrt{\sigma^2_{ph}}}$$
+
+$c = 1$
+
+$$\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{(1+f)~\sigma^2_{ge}}{Env} +  (1+f)~\sigma^2_{g}$$
+
+$f = 0.875$
 
 ```{r}
 f <- .875
 c <- 1
 k <- 1.40
 s2_ph <- sum(s2_e/(reps*env), ((1+f)*s2_ge)/env, (1+f)*s2_g)
-gc_1 <- k * c  * (1+f) * s2_g / sqrt(s2_ph)
-gc_1
+gc_7 <- k * c  * (1+f) * s2_g / sqrt(s2_ph)
+gc_7
 ```
+
+
+Calculate genetic gain on a yearly basis
+
+```{r}
+library(dplyr)
+df <- data.frame(
+            Method = paste0("M", rep(1:7)),
+           `GG_cycle` = c(gc_1, gc_2, gc_3, gc_4, gc_5, gc_6, gc_7), 
+           `1Season` = c(1,1,2,3,2,3,8), 
+           #`2 Similar Seasons` = c(.5,.5,1,1.5,1,1.5,4), 
+           `2 Non Similar Seasons` = c(2,1,1,2,1,2,4) , 
+           `3 Seasons` = c(2,1,1,1,1,1,3)
+             )
+
+names(df) <- c("Method","GG Cycle", "1S", #"2 Similar Seasons",
+               "2NSS", "3S")
+
+df <- df %>% 
+  transmute(.,
+            Method = Method, 
+            `GG Cycle` = `GG Cycle`,
+            "1S" = `1S`, 
+            "1S GG" = `GG Cycle`/`1S`,
+            "2NSS" = `2NSS`, 
+            "2NSS GG" = `GG Cycle`/`2NSS`,
+            "3S" = `3S`,
+            "3S GG" = `GG Cycle`/`3S`,
+            ) %>% 
+  mutate_at(vars(`GG Cycle`:`3S GG`), ~round(.,1))
+  
+df
+```
+
+
 
 
 ### 5. 
@@ -242,3 +295,5 @@ yrs*locs*reps <= 112
 - 8 locations will reduce g x l and g x y x l variance
 
 - 7 replications will help to reduce experimental error
+
+

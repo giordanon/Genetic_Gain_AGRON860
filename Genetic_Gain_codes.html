@@ -116,6 +116,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Enzo, Nick x 3 </p>
+          </div>
+  </div>
     
   
     
@@ -231,13 +237,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4 class="anchored" data-anchor-id="section-1">2.2</h4>
 <p>Modified ear‑to‑row. No selection within rows.</p>
 <p><span class="math display">\[G_{cycle} = \frac{k~c~\frac{1}{4}\sigma^2_A}{\sqrt{\sigma^2_{ph}}}\]</span></p>
+<p><span class="math inline">\(c = \frac{1}{2}\)</span></p>
 <p><span class="math display">\[\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\frac{1}{4} \sigma^2_{ge}}{Env} + \sigma^2_{g}\]</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fl">1.40</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>s2_ph <span class="ot">&lt;-</span> <span class="fu">sum</span>(s2_e<span class="sc">/</span>(reps<span class="sc">*</span>env), (<span class="fl">0.25</span> <span class="sc">*</span> s2_ge)<span class="sc">/</span>env, s2_g)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>gc_1 <span class="ot">&lt;-</span> k <span class="sc">*</span> c <span class="sc">*</span> <span class="fl">0.25</span> <span class="sc">*</span> s2_g <span class="sc">/</span> <span class="fu">sqrt</span>(s2_ph)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>gc_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>gc_2 <span class="ot">&lt;-</span> k <span class="sc">*</span> c <span class="sc">*</span> <span class="fl">0.25</span> <span class="sc">*</span> s2_g <span class="sc">/</span> <span class="fu">sqrt</span>(s2_ph)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>gc_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.7098358</code></pre>
 </div>
@@ -247,14 +254,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4 class="anchored" data-anchor-id="section-2">2.3</h4>
 <p>Half‑sib selection, population as tester, recombine remnant half‑sib seed. Male and female control.</p>
 <p><span class="math display">\[G_{cycle} = \frac{k~c~\frac{1}{4}\sigma^2_A}{\sqrt{\sigma^2_{ph}}}\]</span></p>
+<p><span class="math inline">\(c = 1\)</span></p>
 <p><span class="math display">\[\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\frac{1}{4} \sigma^2_{ge}}{Env} + \sigma^2_{g}\]</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Male and female control</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">1</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fl">1.40</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>s2_ph <span class="ot">&lt;-</span> <span class="fu">sum</span>(s2_e<span class="sc">/</span>(reps<span class="sc">*</span>env), (<span class="fl">0.25</span> <span class="sc">*</span> s2_ge)<span class="sc">/</span>env, <span class="fl">0.25</span><span class="sc">*</span>s2_g)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>gc_1 <span class="ot">&lt;-</span> k <span class="sc">*</span> c <span class="sc">*</span> <span class="fl">0.25</span> <span class="sc">*</span> s2_g <span class="sc">/</span> <span class="fu">sqrt</span>(s2_ph)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>gc_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>gc_3 <span class="ot">&lt;-</span> k <span class="sc">*</span> c <span class="sc">*</span> <span class="fl">0.25</span> <span class="sc">*</span> s2_g <span class="sc">/</span> <span class="fu">sqrt</span>(s2_ph)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>gc_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.534193</code></pre>
 </div>
@@ -264,14 +272,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4 class="anchored" data-anchor-id="section-3">2.4</h4>
 <p>Half‑sib selection, population tester, recombine selfed seed.</p>
 <p><span class="math display">\[G_{cycle} = \frac{k~c~\frac{1}{4}\sigma^2_A}{\sqrt{\sigma^2_{ph}}}\]</span></p>
+<p><span class="math inline">\(c = 2\)</span></p>
 <p><span class="math display">\[\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\frac{1}{4} \sigma^2_{ge}}{Env} + \frac{1}{4} \sigma^2_{g}\]</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Male and female control</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">2</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fl">1.40</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>s2_ph <span class="ot">&lt;-</span> <span class="fu">sum</span>(s2_e<span class="sc">/</span>(reps<span class="sc">*</span>env), (<span class="fl">0.25</span><span class="sc">*</span> s2_ge)<span class="sc">/</span>env, <span class="fl">0.25</span> <span class="sc">*</span> s2_g)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>gc_1 <span class="ot">&lt;-</span> k <span class="sc">*</span> c <span class="sc">*</span> <span class="fl">0.25</span> <span class="sc">*</span> s2_g <span class="sc">/</span> <span class="fu">sqrt</span>(s2_ph)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>gc_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>gc_4 <span class="ot">&lt;-</span> k <span class="sc">*</span> c <span class="sc">*</span> <span class="fl">0.25</span> <span class="sc">*</span> s2_g <span class="sc">/</span> <span class="fu">sqrt</span>(s2_ph)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>gc_4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.068386</code></pre>
 </div>
@@ -280,20 +289,132 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="section-4" class="level4">
 <h4 class="anchored" data-anchor-id="section-4">2.5</h4>
 <p>Full‑sib selection.</p>
+<p><span class="math display">\[G_{cycle} = \frac{k~c~\frac{1}{2}\sigma^2_A}{\sqrt{\sigma^2_{ph}}}\]</span></p>
+<p><span class="math inline">\(c = 1\)</span></p>
+<p><span class="math display">\[\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\frac{1}{2} \sigma^2_{ge}}{Env} + \frac{1}{2} \sigma^2_{g}\]</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">1</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fl">1.40</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>s2_ph <span class="ot">&lt;-</span> <span class="fu">sum</span>(s2_e<span class="sc">/</span>(reps<span class="sc">*</span>env), (<span class="fl">0.25</span><span class="sc">*</span> s2_ge)<span class="sc">/</span>env, <span class="fl">0.25</span> <span class="sc">*</span> s2_g)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>gc_1 <span class="ot">&lt;-</span> k <span class="sc">*</span> c <span class="sc">*</span> <span class="fl">0.25</span> <span class="sc">*</span> s2_g <span class="sc">/</span> <span class="fu">sqrt</span>(s2_ph)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>gc_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>s2_ph <span class="ot">&lt;-</span> <span class="fu">sum</span>(s2_e<span class="sc">/</span>(reps<span class="sc">*</span>env), (<span class="fl">0.50</span><span class="sc">*</span> s2_ge)<span class="sc">/</span>env, <span class="fl">0.50</span> <span class="sc">*</span> s2_g)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>gc_5 <span class="ot">&lt;-</span> k <span class="sc">*</span> c <span class="sc">*</span> <span class="fl">0.50</span> <span class="sc">*</span> s2_g <span class="sc">/</span> <span class="fu">sqrt</span>(s2_ph)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>gc_5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.534193</code></pre>
+<pre><code>[1] 3.700717</code></pre>
 </div>
 </div>
 </section>
 <section id="section-5" class="level4">
 <h4 class="anchored" data-anchor-id="section-5">2.6</h4>
+<p>S0:1 line evaluation. One intercrossing generation between cycles.</p>
+<p><span class="math display">\[G_{cycle} = \frac{k~c~\sigma^2_A}{\sqrt{\sigma^2_{ph}}}\]</span></p>
+<p><span class="math inline">\(c = 1\)</span></p>
+<p><span class="math display">\[\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{\sigma^2_{ge}}{Env} +  \sigma^2_{g}\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fl">1.40</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>s2_ph <span class="ot">&lt;-</span> <span class="fu">sum</span>(s2_e<span class="sc">/</span>(reps<span class="sc">*</span>env), (s2_ge)<span class="sc">/</span>env, s2_g)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>gc_6 <span class="ot">&lt;-</span> k <span class="sc">*</span> c  <span class="sc">*</span> s2_g <span class="sc">/</span> <span class="fu">sqrt</span>(s2_ph)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>gc_6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.322513</code></pre>
+</div>
+</div>
 </section>
+<section id="section-6" class="level4">
+<h4 class="anchored" data-anchor-id="section-6">2.7</h4>
+<p>S3:4 line evaluation. Two intercrossing generations between cycles.</p>
+<p><span class="math display">\[G_{cycle} = \frac{k~c~(1+f)~\sigma^2_A}{\sqrt{\sigma^2_{ph}}}\]</span></p>
+<p><span class="math inline">\(c = 1\)</span></p>
+<p><span class="math display">\[\sigma^2_{ph} = \frac{\sigma^2_{e}}{Reps ~ Env} + \frac{(1+f)~\sigma^2_{ge}}{Env} +  (1+f)~\sigma^2_{g}\]</span></p>
+<p><span class="math inline">\(f = 0.875\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> .<span class="dv">875</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fl">1.40</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>s2_ph <span class="ot">&lt;-</span> <span class="fu">sum</span>(s2_e<span class="sc">/</span>(reps<span class="sc">*</span>env), ((<span class="dv">1</span><span class="sc">+</span>f)<span class="sc">*</span>s2_ge)<span class="sc">/</span>env, (<span class="dv">1</span><span class="sc">+</span>f)<span class="sc">*</span>s2_g)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>gc_7 <span class="ot">&lt;-</span> k <span class="sc">*</span> c  <span class="sc">*</span> (<span class="dv">1</span><span class="sc">+</span>f) <span class="sc">*</span> s2_g <span class="sc">/</span> <span class="fu">sqrt</span>(s2_ph)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>gc_7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7.347128</code></pre>
+</div>
+</div>
+<p>Calculate genetic gain on a yearly basis</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">Method =</span> <span class="fu">paste0</span>(<span class="st">"M"</span>, <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">GG_cycle</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(gc_1, gc_2, gc_3, gc_4, gc_5, gc_6, gc_7), </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">1Season</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">8</span>), </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>           <span class="co">#`2 Similar Seasons` = c(.5,.5,1,1.5,1,1.5,4), </span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">2 Non Similar Seasons</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>) , </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">3 Seasons</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Method"</span>,<span class="st">"GG Cycle"</span>, <span class="st">"1S"</span>, <span class="co">#"2 Similar Seasons",</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>               <span class="st">"2NSS"</span>, <span class="st">"3S"</span>)</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(.,</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">Method =</span> Method, </span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">GG Cycle</span><span class="st">`</span> <span class="ot">=</span> <span class="st">`</span><span class="at">GG Cycle</span><span class="st">`</span>,</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"1S"</span> <span class="ot">=</span> <span class="st">`</span><span class="at">1S</span><span class="st">`</span>, </span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"1S GG"</span> <span class="ot">=</span> <span class="st">`</span><span class="at">GG Cycle</span><span class="st">`</span><span class="sc">/</span><span class="st">`</span><span class="at">1S</span><span class="st">`</span>,</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"2NSS"</span> <span class="ot">=</span> <span class="st">`</span><span class="at">2NSS</span><span class="st">`</span>, </span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"2NSS GG"</span> <span class="ot">=</span> <span class="st">`</span><span class="at">GG Cycle</span><span class="st">`</span><span class="sc">/</span><span class="st">`</span><span class="at">2NSS</span><span class="st">`</span>,</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"3S"</span> <span class="ot">=</span> <span class="st">`</span><span class="at">3S</span><span class="st">`</span>,</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"3S GG"</span> <span class="ot">=</span> <span class="st">`</span><span class="at">GG Cycle</span><span class="st">`</span><span class="sc">/</span><span class="st">`</span><span class="at">3S</span><span class="st">`</span>,</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="st">`</span><span class="at">GG Cycle</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">3S GG</span><span class="st">`</span>), <span class="sc">~</span><span class="fu">round</span>(.,<span class="dv">1</span>))</span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Method GG Cycle 1S 1S GG 2NSS 2NSS GG 3S 3S GG
+1     M1      1.6  1   1.6    2     0.8  2   0.8
+2     M2      0.7  1   0.7    1     0.7  1   0.7
+3     M3      2.5  2   1.3    1     2.5  1   2.5
+4     M4      5.1  3   1.7    2     2.5  1   5.1
+5     M5      3.7  2   1.9    1     3.7  1   3.7
+6     M6      5.3  3   1.8    2     2.7  1   5.3
+7     M7      7.3  8   0.9    4     1.8  3   2.4</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="section-7" class="level3">
+<h3 class="anchored" data-anchor-id="section-7">5.</h3>
+<p><span class="math inline">\(\sigma^2_e = 4.1\)</span></p>
+<p><span class="math inline">\(\sigma^2_{gyl} = \frac{17.2 - \sigma^2_e }{Reps}\)</span></p>
+<p><span class="math inline">\(\sigma^2_{gl} = 42.4 - \frac{\sigma^2_e + Reps ~ \sigma^2_{gyl}}{Years~Reps}\)</span></p>
+<p>$^2_{gy} = 61.5 - $</p>
+<p><span class="math inline">\(Plot~Limit = 112\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#reps per environment</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">#number of years</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#number of locations per year</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>L <span class="ot">&lt;-</span><span class="dv">6</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#components of variance</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>s2_e <span class="ot">&lt;-</span> <span class="fl">4.1</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>s2_gyl <span class="ot">&lt;-</span> (<span class="fl">17.2</span> <span class="sc">-</span> (s2_e))<span class="sc">/</span>R</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>s2_gl <span class="ot">&lt;-</span> (<span class="fl">42.4</span> <span class="sc">-</span> (s2_e <span class="sc">+</span> R<span class="sc">*</span>s2_gyl))<span class="sc">/</span>(Y<span class="sc">*</span>R)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>s2_gy <span class="ot">&lt;-</span> (<span class="fl">61.5</span><span class="sc">-</span>(s2_e <span class="sc">+</span> R<span class="sc">*</span>s2_gyl))<span class="sc">/</span>(L<span class="sc">*</span>R)</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>plot_limit <span class="ot">&lt;-</span> <span class="dv">112</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>yrs <span class="ot">&lt;-</span>  <span class="dv">2</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>locs <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>reps <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>yrs<span class="sc">*</span>locs<span class="sc">*</span>reps <span class="sc">&lt;=</span> <span class="dv">112</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<ul>
+<li><p>2 years will reduce the g x y and g x y x l variance</p></li>
+<li><p>8 locations will reduce g x l and g x y x l variance</p></li>
+<li><p>7 replications will help to reduce experimental error</p></li>
+</ul>
 </section>
 
 </main>
